@@ -1,0 +1,87 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../style-shared.html">
+<link rel="import" href="../view-grid.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../view-day-card.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
+<style is="custom-style" include="style-shared"></style>
+
+<dom-module id="main-app">
+  <template>
+    <style include="style-shared">
+      :host {
+        display: block;
+      }
+
+      app-toolbar {
+        background-color: var(--primary-background-color);
+      }
+
+    </style>
+
+    <app-toolbar>
+      <div main-title>Finance Tracker</div>
+    </app-toolbar>
+
+
+    <view-grid></view-grid>
+
+     <firebase-app auth-domain="uelski-finance-tracker.firebaseapp.com"
+      database-url="https://uelski-finance-tracker.firebaseio.com"
+      api-key="AIzaSyC4ETlK_eTLMMshYUJjjLJi8zPUsL5exFQ"></firebase-app>
+
+      <firebase-document
+      id="clickCount"
+      path="/clicks/first"
+      data="{{clickCount}}">
+    </firebase-document>
+
+
+
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'main-app',
+
+      properties: {
+        clickCount: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true,
+          observer: 'logClick'
+        },
+        click: {
+          type: Number,
+          notify: true,
+          reflectToAttribute: true,
+          value: 0
+        }
+      },
+
+      // addClick: function() {
+      //   console.log('on tap fired');
+      //   var num = this.click + 1;
+      //   this.set('clickCount', num);
+      // },
+
+
+      // logClick: function() {
+      //   console.log(this.clickCount);
+      //   if (typeof(this.clickCount) === 'number') {
+      //     this.set('click', this.clickCount);
+      //   }
+      // }
+
+    });
+  </script>
+</dom-module>

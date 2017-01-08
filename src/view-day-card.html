@@ -1,0 +1,218 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../style-shared.html">
+<!-- <link rel="import" href="../view-grid.html"> -->
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+
+
+
+<style is="custom-style" include="style-shared"></style>
+
+<dom-module id="view-day-card">
+  <template>
+    <style include="style-shared">
+      :host {
+        display: block;
+      }
+
+      paper-material {
+        max-width: 250px;
+        height: 200px;
+        margin: 10px;
+      }
+
+
+    </style>
+
+    <paper-material>
+      {{dataTitle}}
+      <paper-dropdown-menu label="Start Time">
+        <paper-listbox class="dropdown-content" on-iron-select="setStartTime" selected="{{startIndex}}">
+          <template is="dom-repeat" items="{{hours}}">
+            <paper-item>{{item.hour}}: {{item.minute}} {{item.meridiem}}</paper-item>
+          </template> 
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-dropdown-menu label="End Time">
+        <paper-listbox class="dropdown-content" on-iron-select="setEndTime" selected="{{endIndex}}">
+           <template is="dom-repeat" items="{{hours}}">
+            <paper-item>{{item.hour}}: {{item.minute}} {{item.meridiem}}</paper-item>
+          </template> 
+        </paper-listbox>
+      </paper-dropdown-menu>
+      <div>Total: {{dailyHourTotal}}</div>
+    </paper-material>
+
+   
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'view-day-card',
+
+      properties: {
+        dataTitle: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+        dailyHourTotal: {
+          type: Number,
+          notify: true,
+          reflectToAttribute: true
+        },
+        startIndex: {
+          type: String,
+        },
+        endIndex: {
+          type: String
+        },
+        dayStartTime: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true
+        },
+        dayEndTime: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true
+        }
+      },
+
+      setStartTime: function() {
+        this.set('dayStartTime', this.hours[this.startIndex]);
+        this.calculateTotal();
+      },
+
+      setEndTime: function() {
+        this.set('dayEndTime', this.hours[this.endIndex]);
+        this.calculateTotal();
+      },
+
+      calculateTotal: function() {
+        if (this.dayStartTime !== undefined && this.dayEndTime !== undefined) {
+          console.log(this.dayStartTime);
+          console.log(this.dayEndTime);
+          if (this.dayStartTime.meridiem === this.dayEndTime.meridiem) {
+            var hour = this.dayEndTime.hour - this.dayStartTime.hour;
+            var minute;
+            if (this.dayStartTime.minute === this.dayEndTime.minute) {
+              this.set('dailyHourTotal', hour);
+            }
+          }
+        }
+      },
+
+      ready: function() {
+        this.hours = [
+          {"hour": "12", "minute": "00", "meridiem": "am"},
+          {"hour": "12", "minute": "15", "meridiem": "am"},
+          {"hour": "12", "minute": "30", "meridiem": "am"},
+          {"hour": "12", "minute": "45", "meridiem": "am"},
+          {"hour": "1", "minute": "00", "meridiem": "am"},
+          {"hour": "1", "minute": "15", "meridiem": "am"},
+          {"hour": "1", "minute": "30", "meridiem": "am"},
+          {"hour": "1", "minute": "45", "meridiem": "am"},
+          {"hour": "2", "minute": "00", "meridiem": "am"},
+          {"hour": "2", "minute": "15", "meridiem": "am"},
+          {"hour": "2", "minute": "30", "meridiem": "am"},
+          {"hour": "2", "minute": "45", "meridiem": "am"},
+          {"hour": "3", "minute": "00", "meridiem": "am"},
+          {"hour": "3", "minute": "15", "meridiem": "am"},
+          {"hour": "3", "minute": "30", "meridiem": "am"},
+          {"hour": "3", "minute": "45", "meridiem": "am"},
+          {"hour": "4", "minute": "00", "meridiem": "am"},
+          {"hour": "4", "minute": "15", "meridiem": "am"},
+          {"hour": "4", "minute": "30", "meridiem": "am"},
+          {"hour": "4", "minute": "45", "meridiem": "am"},
+          {"hour": "5", "minute": "00", "meridiem": "am"},
+          {"hour": "5", "minute": "15", "meridiem": "am"},
+          {"hour": "5", "minute": "30", "meridiem": "am"},
+          {"hour": "5", "minute": "45", "meridiem": "am"},
+          {"hour": "6", "minute": "00", "meridiem": "am"},
+          {"hour": "6", "minute": "15", "meridiem": "am"},
+          {"hour": "6", "minute": "30", "meridiem": "am"},
+          {"hour": "6", "minute": "45", "meridiem": "am"},
+          {"hour": "7", "minute": "00", "meridiem": "am"},
+          {"hour": "7", "minute": "15", "meridiem": "am"},
+          {"hour": "7", "minute": "30", "meridiem": "am"},
+          {"hour": "7", "minute": "45", "meridiem": "am"},
+          {"hour": "8", "minute": "00", "meridiem": "am"},
+          {"hour": "8", "minute": "15", "meridiem": "am"},
+          {"hour": "8", "minute": "30", "meridiem": "am"},
+          {"hour": "8", "minute": "45", "meridiem": "am"},
+          {"hour": "9", "minute": "00", "meridiem": "am"},
+          {"hour": "9", "minute": "15", "meridiem": "am"},
+          {"hour": "9", "minute": "30", "meridiem": "am"},
+          {"hour": "9", "minute": "45", "meridiem": "am"},
+          {"hour": "10", "minute": "00", "meridiem": "am"},
+          {"hour": "10", "minute": "15", "meridiem": "am"},
+          {"hour": "10", "minute": "30", "meridiem": "am"},
+          {"hour": "10", "minute": "45", "meridiem": "am"},
+          {"hour": "11", "minute": "00", "meridiem": "am"},
+          {"hour": "11", "minute": "15", "meridiem": "am"},
+          {"hour": "11", "minute": "30", "meridiem": "am"},
+          {"hour": "11", "minute": "45", "meridiem": "am"},
+          {"hour": "12", "minute": "00", "meridiem": "pm"},
+          {"hour": "12", "minute": "15", "meridiem": "pm"},
+          {"hour": "12", "minute": "30", "meridiem": "pm"},
+          {"hour": "12", "minute": "45", "meridiem": "pm"},
+          {"hour": "1", "minute": "00", "meridiem": "pm"},
+          {"hour": "1", "minute": "15", "meridiem": "pm"},
+          {"hour": "1", "minute": "30", "meridiem": "pm"},
+          {"hour": "1", "minute": "45", "meridiem": "pm"},
+          {"hour": "2", "minute": "00", "meridiem": "pm"},
+          {"hour": "2", "minute": "15", "meridiem": "pm"},
+          {"hour": "2", "minute": "30", "meridiem": "pm"},
+          {"hour": "2", "minute": "45", "meridiem": "pm"},
+          {"hour": "3", "minute": "00", "meridiem": "pm"},
+          {"hour": "3", "minute": "15", "meridiem": "pm"},
+          {"hour": "3", "minute": "30", "meridiem": "pm"},
+          {"hour": "3", "minute": "45", "meridiem": "pm"},
+          {"hour": "4", "minute": "00", "meridiem": "pm"},
+          {"hour": "4", "minute": "15", "meridiem": "pm"},
+          {"hour": "4", "minute": "30", "meridiem": "pm"},
+          {"hour": "4", "minute": "45", "meridiem": "pm"},
+          {"hour": "5", "minute": "00", "meridiem": "pm"},
+          {"hour": "5", "minute": "15", "meridiem": "pm"},
+          {"hour": "5", "minute": "30", "meridiem": "pm"},
+          {"hour": "5", "minute": "45", "meridiem": "pm"},
+          {"hour": "6", "minute": "00", "meridiem": "pm"},
+          {"hour": "6", "minute": "15", "meridiem": "pm"},
+          {"hour": "6", "minute": "30", "meridiem": "pm"},
+          {"hour": "6", "minute": "45", "meridiem": "pm"},
+          {"hour": "7", "minute": "00", "meridiem": "pm"},
+          {"hour": "7", "minute": "15", "meridiem": "pm"},
+          {"hour": "7", "minute": "30", "meridiem": "pm"},
+          {"hour": "7", "minute": "45", "meridiem": "pm"},
+          {"hour": "8", "minute": "00", "meridiem": "pm"},
+          {"hour": "8", "minute": "15", "meridiem": "pm"},
+          {"hour": "8", "minute": "30", "meridiem": "pm"},
+          {"hour": "8", "minute": "45", "meridiem": "pm"},
+          {"hour": "9", "minute": "00", "meridiem": "pm"},
+          {"hour": "9", "minute": "15", "meridiem": "pm"},
+          {"hour": "9", "minute": "30", "meridiem": "pm"},
+          {"hour": "9", "minute": "45", "meridiem": "pm"},
+          {"hour": "10", "minute": "00", "meridiem": "pm"},
+          {"hour": "10", "minute": "15", "meridiem": "pm"},
+          {"hour": "10", "minute": "30", "meridiem": "pm"},
+          {"hour": "10", "minute": "45", "meridiem": "pm"},
+          {"hour": "11", "minute": "00", "meridiem": "pm"},
+          {"hour": "11", "minute": "15", "meridiem": "pm"},
+          {"hour": "11", "minute": "30", "meridiem": "pm"},
+          {"hour": "11", "minute": "45", "meridiem": "pm"}
+        ]
+
+      }
+
+
+    });
+  </script>
+</dom-module>
