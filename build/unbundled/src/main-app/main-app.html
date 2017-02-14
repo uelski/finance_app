@@ -1,0 +1,32 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../view-grid.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../view-day-card.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
+<style is="custom-style"></style>
+
+</head><body><dom-module id="main-app">
+  <template>
+    <style>:host{display:block;}app-toolbar{background-color:var(--primary-background-color);}</style>
+
+    <app-toolbar>
+      <div main-title="">Finance Tracker</div>
+    </app-toolbar>
+
+
+    <view-grid></view-grid>
+
+     
+
+
+
+
+  </template>
+
+  <script>Polymer({is:"main-app",properties:{clickCount:{type:Object,notify:!0,reflectToAttribute:!0,observer:"logClick"},click:{type:Number,notify:!0,reflectToAttribute:!0,value:0}}});</script>
+</dom-module>
+</body></html>

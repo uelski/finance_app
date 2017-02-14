@@ -10,11 +10,11 @@
 
 
 
-<style is="custom-style" include="style-shared"></style>
+<style is="custom-style"></style>
 
 <dom-module id="view-day-card">
   <template>
-    <style include="style-shared">
+    <style>
       :host {
         display: block;
       }
@@ -97,15 +97,73 @@
       },
 
       calculateTotal: function() {
+        // console.log('calculateTotal');
         if (this.dayStartTime !== undefined && this.dayEndTime !== undefined) {
           console.log(this.dayStartTime);
           console.log(this.dayEndTime);
+          var hour;
+          var minute = 0;
+          if (this.dayStartTime.hour === "12") {
+            this.set('dayStartTime.hour', 0);
+          }
           if (this.dayStartTime.meridiem === this.dayEndTime.meridiem) {
-            var hour = this.dayEndTime.hour - this.dayStartTime.hour;
-            var minute;
             if (this.dayStartTime.minute === this.dayEndTime.minute) {
+              hour = this.dayEndTime.hour - this.dayStartTime.hour;
               this.set('dailyHourTotal', hour);
+            } else if (this.dayEndTime.minute > this.dayStartTime.minute) {
+              hour = this.dayEndTime.hour - this.dayStartTime.hour;
+              minute = (this.dayEndTime.minute - this.dayStartTime.minute) / 60;
+              this.set('dailyHourTotal', hour + minute);
+            } else if (this.dayEndTime.minute < this.dayStartTime.minute) {
+              hour = (this.dayEndTime.hour - this.dayStartTime.hour) - 1;
+              minute = (60 - (this.dayStartTime.minute - this.dayEndTime.minute)) / 60;
+              this.set('dailyHourTotal', hour + minute);
             }
+          } else {
+            var start = parseInt(this.dayStartTime.hour);
+            var end = parseInt(this.dayEndTime.hour);
+            if (this.dayEndTime.hour === '12' && this.dayEndTime.meridiem === 'pm') {
+
+              if (this.dayStartTime.minute === this.dayEndTime.minute) {
+
+                hour = this.dayEndTime.hour - this.dayStartTime.hour;
+                this.set('dailyHourTotal', hour);
+
+              } else if (this.dayEndTime.minute > this.dayStartTime.minute) {
+
+                hour = this.dayEndTime.hour - this.dayStartTime.hour;
+                minute = (this.dayEndTime.minute - this.dayStartTime.minute) / 60;
+                this.set('dailyHourTotal', hour + minute);
+
+              } else if (this.dayEndTime.minute < this.dayStartTime.minute) {
+
+                hour = (this.dayEndTime.hour - this.dayStartTime.hour) - 1;
+                minute = (60 - (this.dayStartTime.minute - this.dayEndTime.minute)) / 60;
+                this.set('dailyHourTotal', hour + minute);
+
+              }
+
+            } else {
+               if (this.dayStartTime.minute === this.dayEndTime.minute) {
+    
+                hour = (12 - start) + end; 
+                this.set('dailyHourTotal', hour);
+
+              } else if (this.dayEndTime.minute > this.dayStartTime.minute) {
+
+                hour = (12 - start) + end; 
+                minute = (this.dayEndTime.minute - this.dayStartTime.minute) / 60;
+                this.set('dailyHourTotal', hour + minute);
+
+              } else if (this.dayEndTime.minute < this.dayStartTime.minute) {
+
+                hour = ((12 - start) + end) - 1;
+                minute = (60 - (this.dayStartTime.minute - this.dayEndTime.minute)) / 60;
+                this.set('dailyHourTotal', hour + minute); 
+
+              } 
+            }
+
           }
         }
       },

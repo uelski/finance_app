@@ -1,0 +1,6 @@
+{
+  "name": "finance_app",
+  "short_name": "finance_app",
+  "start_url": "/",
+  "display": "standalone"
+}

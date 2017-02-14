@@ -1,0 +1,31 @@
+<html><head><link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../style-shared.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+
+
+
+
+<style is="custom-style"></style>
+
+</head><body><dom-module id="view-grid">
+  <template>
+    <style include="app-grid-style">:host{display:block;--app-grid-columns:8;--app-grid-item-height:50px;}</style>
+
+
+    <div class="app-grid">
+      <template is="dom-repeat" items="{{days}}">
+        <view-day-card data-title="{{item.name}}"></view-day-card>
+      </template>
+    </div>
+
+
+  </template>
+
+  <script>Polymer({is:"view-grid",properties:{clickCount:{type:Object,notify:!0,reflectToAttribute:!0,observer:"logClick"},click:{type:Number,notify:!0,reflectToAttribute:!0,value:0}},ready:function(){this.days=[{name:"Monday",date:""},{name:"Tuseday",date:""},{name:"Wednesday",date:""},{name:"Thursday",date:""},{name:"Friday",date:""},{name:"Saturday",date:""},{name:"Sunday",date:""}]}});</script>
+</dom-module>
+</body></html>
