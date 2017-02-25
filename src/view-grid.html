@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 
 
@@ -21,7 +22,17 @@
         --app-grid-item-height: 50px;
       }
 
-    
+     paper-material {
+        max-width: 250px;
+        height: 200px;
+        margin: 10px;
+        text-align: center;
+        max-width: 50px;
+      }
+
+      .app-grid {
+        height: 200px;
+      }
 
     </style>
 
@@ -31,7 +42,13 @@
         <view-day-card data-title="{{item.name}}"></view-day-card>
       </template>
     </div>
+    <div>
+      <paper-material class="totalHours">
+        {{weekHours}}
+      </paper-material> 
+    </div>
 
+  <iron-signals on-iron-signal-calculate="calculate"></iron-signals>
 
   </template>
 
@@ -52,7 +69,21 @@
           notify: true,
           reflectToAttribute: true,
           value: 0
+        },
+        weekHours: {
+          type: Number,
+          notify: true,
+          reflectToAttribute: true,
+          value: 0
         }
+      },
+
+      calculate: function(data) {
+        console.log('iron signal calculate');
+        // console.log(data);
+        var hours = this.weekHours;
+        hours += data.detail.hour;
+        this.set('weekHours', hours);
       },
 
     ready: function() {

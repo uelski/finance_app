@@ -3,10 +3,12 @@
 <link rel="import" href="../view-grid.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<!-- <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
-<link rel="import" href="../../bower_components/polymerfire/firebase-query.html"> -->
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../view-day-card.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 
@@ -23,6 +25,11 @@
         background-color: var(--primary-background-color);
       }
 
+      .totalhours {
+        text-align: center;
+        margin: 50px;
+      }
+
     </style>
 
     <app-toolbar>
@@ -30,20 +37,21 @@
     </app-toolbar>
 
 
-    <view-grid></view-grid>
+    <view-grid></view-grid> 
 
-     <!-- <firebase-app auth-domain="uelski-finance-tracker.firebaseapp.com"
-      database-url="https://uelski-finance-tracker.firebaseio.com"
-      api-key="AIzaSyC4ETlK_eTLMMshYUJjjLJi8zPUsL5exFQ"></firebase-app>
+     
 
+     <firebase-app auth-domain="uelski-finance-app.firebaseapp.com"
+      database-url="https://uelski-finance-app.firebaseio.com"
+      api-key="AIzaSyD2VASM02Q3tNooa7kO2Ncaq-z6jDS52Yg"></firebase-app>
+
+     
       <firebase-document
-      id="clickCount"
-      path="/clicks/first"
-      data="{{clickCount}}">
-    </firebase-document> -->
+        path="/users"
+        data="{{users}}">
+      </firebase-document>
 
-
-
+      <div>users: {{users}}</div>
 
   </template>
 
@@ -64,8 +72,14 @@
           notify: true,
           reflectToAttribute: true,
           value: 0
+        },
+        users: {
+          type: Object,
+          notify: true,
+          reflectToAttribute: true
         }
       },
+
 
       // addClick: function() {
       //   console.log('on tap fired');
