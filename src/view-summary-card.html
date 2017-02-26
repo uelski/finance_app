@@ -1,0 +1,62 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+
+
+
+<style is="custom-style"></style>
+
+<dom-module id="view-summary-card">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .summaryCard {
+        margin: 20px 10px;
+      }
+
+    </style>
+
+    <paper-material class="summaryCard">
+      <div>Week Summary</div>
+      <div>Total Hours: {{totalHours}}</div>
+
+    </paper-material>
+
+   
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'view-summary-card',
+
+      properties: {
+        totalHours: {
+          type: Number,
+          notify: true,
+          reflectToAttribute: true
+        }
+
+      },
+
+
+
+
+      ready: function() {
+        
+
+      }
+
+
+    });
+  </script>
+</dom-module>

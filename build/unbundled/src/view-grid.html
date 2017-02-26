@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
 
 
 
@@ -14,7 +15,7 @@
 
 </head><body><dom-module id="view-grid">
   <template>
-    <style include="app-grid-style">:host{display:block;--app-grid-columns:8;--app-grid-item-height:50px;}</style>
+    <style include="app-grid-style">:host{display:block;--app-grid-columns:8;--app-grid-item-height:50px;}paper-material{max-width:250px;height:200px;margin:10px;text-align:center;max-width:50px;}.app-grid{height:200px;}</style>
 
 
     <div class="app-grid">
@@ -22,10 +23,16 @@
         <view-day-card data-title="{{item.name}}"></view-day-card>
       </template>
     </div>
+    <div>
+      <paper-material class="totalHours">
+        {{weekHours}}
+      </paper-material> 
+    </div>
 
+  <iron-signals on-iron-signal-calculate="calculate"></iron-signals>
 
   </template>
 
-  <script>Polymer({is:"view-grid",properties:{clickCount:{type:Object,notify:!0,reflectToAttribute:!0,observer:"logClick"},click:{type:Number,notify:!0,reflectToAttribute:!0,value:0}},ready:function(){this.days=[{name:"Monday",date:""},{name:"Tuseday",date:""},{name:"Wednesday",date:""},{name:"Thursday",date:""},{name:"Friday",date:""},{name:"Saturday",date:""},{name:"Sunday",date:""}]}});</script>
+  <script>Polymer({is:"view-grid",properties:{clickCount:{type:Object,notify:!0,reflectToAttribute:!0,observer:"logClick"},click:{type:Number,notify:!0,reflectToAttribute:!0,value:0},weekHours:{type:Number,notify:!0,reflectToAttribute:!0,value:0}},calculate:function(e){console.log("iron signal calculate");var t=this.weekHours;t+=e.detail.hour,this.set("weekHours",t)},ready:function(){this.days=[{name:"Monday",date:""},{name:"Tuseday",date:""},{name:"Wednesday",date:""},{name:"Thursday",date:""},{name:"Friday",date:""},{name:"Saturday",date:""},{name:"Sunday",date:""}]}});</script>
 </dom-module>
 </body></html>

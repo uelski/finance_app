@@ -10,7 +10,9 @@
 <link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../view-day-card.html">
+<link rel="import" href="../view-summary-card.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<!-- <link rel="import" href="../../bower_components/moment/moment.js"> -->
 
 <style is="custom-style"></style>
 
@@ -34,6 +36,7 @@
 
     <app-toolbar>
       <div main-title>Finance Tracker</div>
+      <div>{{today}}</div>
     </app-toolbar>
 
 
@@ -51,7 +54,6 @@
         data="{{users}}">
       </firebase-document>
 
-      <div>users: {{users}}</div>
 
   </template>
 
@@ -77,23 +79,20 @@
           type: Object,
           notify: true,
           reflectToAttribute: true
+        },
+        today: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
         }
       },
 
 
-      // addClick: function() {
-      //   console.log('on tap fired');
-      //   var num = this.click + 1;
-      //   this.set('clickCount', num);
-      // },
-
-
-      // logClick: function() {
-      //   console.log(this.clickCount);
-      //   if (typeof(this.clickCount) === 'number') {
-      //     this.set('click', this.clickCount);
-      //   }
-      // }
+      ready: function() {
+        // var today = moment().format('LLL');
+        var today = moment().format('dddd, L');
+        this.set('today', today);
+      }
 
     });
   </script>

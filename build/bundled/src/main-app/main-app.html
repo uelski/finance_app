@@ -3,7 +3,12 @@
 <link rel="import" href="../view-grid.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../view-day-card.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 
@@ -11,22 +16,27 @@
 
 </head><body><dom-module id="main-app">
   <template>
-    <style>:host{display:block;}app-toolbar{background-color:var(--primary-background-color);}</style>
+    <style>:host{display:block;}app-toolbar{background-color:var(--primary-background-color);}.totalhours{text-align:center;margin:50px;}</style>
 
     <app-toolbar>
       <div main-title="">Finance Tracker</div>
     </app-toolbar>
 
 
-    <view-grid></view-grid>
+    <view-grid></view-grid> 
 
      
 
+     <firebase-app auth-domain="uelski-finance-app.firebaseapp.com" database-url="https://uelski-finance-app.firebaseio.com" api-key="AIzaSyD2VASM02Q3tNooa7kO2Ncaq-z6jDS52Yg"></firebase-app>
 
+     
+      <firebase-document path="/users/name" data="{{users}}">
+      </firebase-document>
 
+      <div>users: {{users}}</div>
 
   </template>
 
-  <script>Polymer({is:"main-app",properties:{clickCount:{type:Object,notify:!0,reflectToAttribute:!0,observer:"logClick"},click:{type:Number,notify:!0,reflectToAttribute:!0,value:0}}});</script>
+  <script>Polymer({is:"main-app",properties:{clickCount:{type:Object,notify:!0,reflectToAttribute:!0,observer:"logClick"},click:{type:Number,notify:!0,reflectToAttribute:!0,value:0},users:{type:Object,notify:!0,reflectToAttribute:!0}}});</script>
 </dom-module>
 </body></html>

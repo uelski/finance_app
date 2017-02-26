@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../style-shared.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/app-layout/app-grid/app-grid-style.html">
@@ -19,7 +18,7 @@
       :host {
         display: block;
         --app-grid-columns: 8;
-        --app-grid-item-height: 50px;
+        /*--app-grid-item-height: 100px;*/
       }
 
      paper-material {
@@ -31,7 +30,7 @@
       }
 
       .app-grid {
-        height: 200px;
+        height: 1000px;
       }
 
     </style>
@@ -41,13 +40,15 @@
       <template is="dom-repeat" items="{{days}}">
         <view-day-card data-title="{{item.name}}"></view-day-card>
       </template>
+
+      <view-summary-card total-hours="{{weekHours}}"></view-summary-card>
     </div>
-    <div>
+    <!-- <div>
       <paper-material class="totalHours">
         {{weekHours}}
       </paper-material> 
     </div>
-
+ -->
   <iron-signals on-iron-signal-calculate="calculate"></iron-signals>
 
   </template>
@@ -75,6 +76,12 @@
           notify: true,
           reflectToAttribute: true,
           value: 0
+        },
+        showDays: {
+          type: Number,
+          notify: true,
+          reflectToAttribute: true,
+          value: 7
         }
       },
 
@@ -87,15 +94,15 @@
       },
 
     ready: function() {
-      this.days = [
-        {"name": "Monday", "date": ""},
-        {"name": "Tuseday", "date": ""},
-        {"name": "Wednesday", "date": ""},
-        {"name": "Thursday", "date": ""},
-        {"name": "Friday", "date": ""},
-        {"name": "Saturday", "date": ""},
-        {"name": "Sunday", "date": ""}
-      ]
+      
+
+      this.days = [];
+      for (var i = 0; i < this.showDays; i++) {
+        var day = {};
+        day.name = moment().add(i, 'days').format('dddd, L');
+        this.push('days', day);
+      }
+      console.log(this.days);
     }
 
     });
